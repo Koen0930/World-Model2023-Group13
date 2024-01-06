@@ -5,9 +5,6 @@ import numpy as np
 from tqdm import tqdm
 from datetime import datetime
 
-import sys
-sys.path.append('/workspace/World-Model2023-Group13')
-
 from reasoners import LanguageModel, Reasoner, SearchAlgorithm
 from reasoners.benchmark import BWEvaluator
 from reasoners.algorithm import MCTS

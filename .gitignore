@@ -167,3 +167,4 @@ reasoners/lm/llama/
 
 # log
 logs/
+tmp_plan.txt

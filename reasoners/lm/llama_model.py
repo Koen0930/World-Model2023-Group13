@@ -11,7 +11,8 @@ import numpy as np
 import torch
 import torch.distributed
 from fairscale.nn.model_parallel.initialize import initialize_model_parallel
-from llama1 import ModelArgs, Transformer, Tokenizer
+# from llama1 import ModelArgs, Transformer, Tokenizer
+from reasoners.lm.llama.llama import ModelArgs, Transformer, Tokenizer
 
 from reasoners import LanguageModel, GenerateOutput
 
@@ -33,7 +34,7 @@ class LlamaModel(LanguageModel):
         super().__init__()
         if local_rank == -1 or world_size == -1:
             local_rank, world_size = setup_model_parallel()
-        self.tokenizer, self.model = self.load(os.path.join(path, size), os.path.join(path, "tokenizer.model"),
+        self.tokenizer, self.model = self.load(os.path.join(path, "llama-2-7b"), os.path.join(path, "tokenizer.model"),
                                                local_rank, world_size, max_batch_size=max_batch_size,
                                                max_seq_len=max_seq_len)
         self.max_seq_len = max_seq_len

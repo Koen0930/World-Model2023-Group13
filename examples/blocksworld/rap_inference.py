@@ -6,7 +6,7 @@ from tqdm import tqdm
 from datetime import datetime
 
 import sys
-sys.path.append('/workspace/World-Model2023-Group13')
+sys.path.append('/home/acf15519ro/World-Model2023-Group13')
 
 from reasoners import LanguageModel, Reasoner, SearchAlgorithm
 from reasoners.benchmark import BWEvaluator
@@ -60,19 +60,21 @@ if __name__ == '__main__':
     torch.manual_seed(1)
     torch.cuda.manual_seed(1)
     torch.backends.cudnn.deterministic = True
-    def llama_main(llama_size: str = '13B',
-             prompt_path: str = 'examples/rap_blocksworld/prompts/prompt.json',
-             data_path: str = 'examples/rap_blocksworld/data/step_4.json',
+    def llama_main(llama_size: str = '7B',
+             prompt_path: str = 'examples/blocksworld/prompts/pool_prompt_v2_step_6.json',
+             data_path: str = 'examples/blocksworld/data/step_4.json',
              disable_log: bool = False,
-             config_file: str = "examples/rap_blocksworld/data/bw_config.yaml",
-             domain_file: str = "examples/rap_blocksworld/data/generated_domain.pddl",
+             config_file: str = "examples/blocksworld/data/bw_config.yaml",
+             domain_file: str = "examples/blocksworld/data/generated_domain.pddl",
              lm_plan_file: str = 'lm_plan.tmp',
              depth_limit: int = 6,
              **kwargs):
 
         from reasoners.lm import LlamaModel
-        local_rank = int(os.environ["LOCAL_RANK"])
-        llama_ckpts = os.environ["LLAMA_CKPTS"]
+        # local_rank = int(os.environ["LOCAL_RANK"])
+        local_rank = -1
+        # llama_ckpts = os.environ["LLAMA_CKPTS"]
+        llama_ckpts = "/home/acf15519ro/World-Model2023-Group13/reasoners/lm/llama"
         with open(prompt_path) as f:
             prompt = json.load(f)
         llama_model = LlamaModel(llama_ckpts, llama_size, max_batch_size=2)
@@ -90,12 +92,12 @@ if __name__ == '__main__':
 
     def llamacpp_main(
             llama_path = '/home/shibo/llama.cpp/models/65B/ggml-model-q8_0.bin',
-            prompt_path: str = 'examples/rap_blocksworld/prompts/prompt.json',
-            data_path: str = 'examples/rap_blocksworld/data/step_4.json',
+            prompt_path: str = 'examples/blocksworld/prompts/prompt.json',
+            data_path: str = 'examples/blocksworld/data/step_4.json',
             disable_log: bool = False,
-            config_file: str = "examples/rap_blocksworld/data/bw_config.yaml",
+            config_file: str = "examples/blocksworld/data/bw_config.yaml",
             lm_plan_file: str = 'lm_plan.tmp',
-            domain_file: str = "examples/rap_blocksworld/data/generated_domain.pddl",
+            domain_file: str = "examples/blocksworld/data/generated_domain.pddl",
             depth_limit: int = 6,
             **kwargs):
 
@@ -115,11 +117,11 @@ if __name__ == '__main__':
     def llama_hf_main(
             llama_path = '/data/haotian/RAP_tune/Llama-2-7b-hf',
             peft_path = None,
-            prompt_path: str = 'examples/rap_blocksworld/prompts/prompt.json',
-            data_path: str = 'examples/rap_blocksworld/data/step_4.json',
+            prompt_path: str = 'examples/blocksworld/prompts/prompt.json',
+            data_path: str = 'examples/blocksworld/data/step_4.json',
             disable_log: bool = False,
-            config_file: str = "examples/rap_blocksworld/data/bw_config.yaml",
-            domain_file: str = "examples/rap_blocksworld/data/generated_domain.pddl",
+            config_file: str = "examples/blocksworld/data/bw_config.yaml",
+            domain_file: str = "examples/blocksworld/data/generated_domain.pddl",
             lm_plan_file: str = 'lm_plan.tmp',
             depth_limit: int = 6,
             quantized = "nf4", # awq, int8, fp4, nf4, None
@@ -143,11 +145,11 @@ if __name__ == '__main__':
     def exllama_main(
             model_dir = '/data/haotian/RAP_tune/Llama-2-13B-GPTQ',
             lora_dir = None,
-            prompt_path: str = 'examples/rap_blocksworld/prompts/prompt.json',
-            data_path: str = 'examples/rap_blocksworld/data/step_4.json',
+            prompt_path: str = 'examples/blocksworld/prompts/prompt.json',
+            data_path: str = 'examples/blocksworld/data/step_4.json',
             disable_log: bool = False,
-            config_file: str = "examples/rap_blocksworld/data/bw_config.yaml",
-            domain_file: str = "examples/rap_blocksworld/data/generated_domain.pddl",
+            config_file: str = "examples/blocksworld/data/bw_config.yaml",
+            domain_file: str = "examples/blocksworld/data/generated_domain.pddl",
             lm_plan_file: str = 'lm_plan.tmp',
             depth_limit: int = 6,
             batch_size: int = 1,
@@ -176,19 +178,21 @@ if __name__ == '__main__':
                lm_plan_file=lm_plan_file,
                batch_size=batch_size, **kwargs)
     
-    def llama2_main(llama_size: str = '70B',
-             prompt_path: str = 'examples/rap_blocksworld/prompts/prompt.json',
-             data_path: str = 'examples/rap_blocksworld/data/step_4.json',
+    def llama2_main(llama_size: str = '7B',
+             prompt_path: str = 'examples/blocksworld/prompts/pool_prompt_v2_step_6.json',
+             data_path: str = 'examples/blocksworld/data/step_4.json',
              disable_log: bool = False,
-             config_file: str = "examples/rap_blocksworld/data/bw_config.yaml",
-             domain_file: str = "examples/rap_blocksworld/data/generated_domain.pddl",
+             config_file: str = "examples/blocksworld/data/bw_config.yaml",
+             domain_file: str = "examples/blocksworld/data/generated_domain.pddl",
              lm_plan_file: str = 'lm_plan.tmp',
              depth_limit: int = 6,
              **kwargs):
 
         from reasoners.lm import Llama2Model
-        local_rank = int(os.environ["LOCAL_RANK"])
-        llama2_ckpts = os.environ["LLAMA_2_CKPTS"]
+        # local_rank = int(os.environ["LOCAL_RANK"])
+        local_rank = -1
+        # llama2_ckpts = os.environ["LLAMA_2_CKPTS"]
+        llama2_ckpts = "/home/acf15519ro/World-Model2023-Group13/reasoners/lm/llama"
         with open(prompt_path) as f:
             prompt = json.load(f)
         llama_model = Llama2Model(llama2_ckpts, llama_size, max_batch_size=1)
@@ -202,4 +206,4 @@ if __name__ == '__main__':
                lm_plan_file=lm_plan_file, **kwargs)
 
 
-    fire.Fire(exllama_main) # user will need to switch the model in the code
+    fire.Fire(llama2_main) # user will need to switch the model in the code

@@ -180,7 +180,7 @@ if __name__ == '__main__':
     
     def llama2_main(llama_size: str = '7B',
              prompt_path: str = 'examples/blocksworld/prompts/pool_prompt_v2_step_6.json',
-             data_path: str = 'examples/blocksworld/data/step_4.json',
+             data_path: str = 'examples/blocksworld/data/step_6.json',
              disable_log: bool = False,
              config_file: str = "examples/blocksworld/data/bw_config.yaml",
              domain_file: str = "examples/blocksworld/data/generated_domain.pddl",

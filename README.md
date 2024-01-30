@@ -1,3 +1,10 @@
+## World-Model-2023-Group13
+このリポジトリは、参考論文であるReasoning with Language Model is Planning with World Modelの[リポジトリ](https://github.com/Ber666/llm-reasoners)を複製して作成した。
+
+環境構築・検証も、元リポジトリのREADMEをもとに一部コードを変更して行った。
+
+以下は、元リポジトリのREADMEである。
+
 ![logo](images/image.png#pic_center)
 
 ---

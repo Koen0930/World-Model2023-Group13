@@ -28,8 +28,12 @@ def instance_to_text_blocksworld(problem, get_plan, data, plan_code="", shuffle=
     
     :param get_plan: Flag to return the plan as text as well
     """
-
-    OBJS = data['encoded_objects']
+    # OBJS = data['encoded_objects']
+    
+    OBJS = {"red": "a", "blue": "b", "orange": "c", "yellow": "d",
+    "white": "e", "magenta": "f", "black": "g", "cyan": "h",
+    "green": "i", "violet": "j", "silver": "k", "gold": "l"}
+    
 
     # ----------- PARSE THE PROBLEM ----------- #
     INIT, GOAL = parse_problem(problem, data, shuffle)

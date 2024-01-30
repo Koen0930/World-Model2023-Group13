@@ -11,7 +11,7 @@ import numpy as np
 import torch
 import torch.distributed
 from fairscale.nn.model_parallel.initialize import initialize_model_parallel
-from llama import ModelArgs, Transformer, Tokenizer
+from reasoners.lm.llama.llama import ModelArgs, Transformer, Tokenizer
 
 from reasoners import LanguageModel, GenerateOutput
 

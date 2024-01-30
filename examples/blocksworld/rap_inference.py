@@ -71,8 +71,7 @@ if __name__ == '__main__':
              **kwargs):
 
         from reasoners.lm import LlamaModel
-        # local_rank = int(os.environ["LOCAL_RANK"])
-        local_rank = -1
+        local_rank = int(os.environ["LOCAL_RANK"])
         # llama_ckpts = os.environ["LLAMA_CKPTS"]
         llama_ckpts = "/home/acf15519ro/World-Model2023-Group13/reasoners/lm/llama"
         with open(prompt_path) as f:
@@ -189,8 +188,8 @@ if __name__ == '__main__':
              **kwargs):
 
         from reasoners.lm import Llama2Model
-        # local_rank = int(os.environ["LOCAL_RANK"])
-        local_rank = -1
+        local_rank = int(os.environ["LOCAL_RANK"])
+        # local_rank = -1
         # llama2_ckpts = os.environ["LLAMA_2_CKPTS"]
         llama2_ckpts = "/home/acf15519ro/World-Model2023-Group13/reasoners/lm/llama"
         with open(prompt_path) as f:

@@ -47,9 +47,9 @@ class BWConfig(SearchConfig):
         self_eval = self.base_model.get_loglikelihood(self_eval_prompt, 
             [self_eval_prompt + "good"])[0]
 
-        return self.calculate_reward(intuition, self_eval), {'intuition': intuition, "self_eval": self_eval}
+        return self.calculate_reward(intuition, self_eval, state.step_idx), {'intuition': intuition, "self_eval": self_eval}
 
-    def calculate_reward(self, intuition, self_eval, goal_reached=None):
+    def calculate_reward(self, intuition, self_eval, step_idx, goal_reached=None):
         # to provide a unified interface for reward and fast_reward
         if goal_reached is None:
             goal_reward = self.goal_reward_default
@@ -57,7 +57,11 @@ class BWConfig(SearchConfig):
             goal_reward = self.goal_reached_reward
         else:
             goal_reward = goal_reached[1]
-        return (intuition + self_eval) * self.reward_alpha + goal_reward * (1 - self.reward_alpha)
+        if step_idx > 4: # ステップ数、重み（intuition_ratio）を検証によって変更
+            intuition_ratio = 0.9 # 負のintuitionを小さくする -> 報酬としては大きくなる
+        else:
+            intuition_ratio = 1
+        return (intuition_ratio * intuition + self_eval) * self.reward_alpha + goal_reward * (1 - self.reward_alpha)
 
     def reward(self, state: BWState, action: BWAction,
                intuition: float = None,
@@ -66,7 +70,7 @@ class BWConfig(SearchConfig):
         assert intuition is not None, "intuition is required to calculate reward in this search config, consider passing it in fast_reward"
         assert self_eval is not None, "self_eval is required to calculate reward in this search config, consider passing it in fast_reward"
         assert goal_reached is not None, "goal_reached is required to calculate reward in this search config, consider passing it in world model's step"
-        return (self.calculate_reward(intuition, self_eval, goal_reached), 
+        return (self.calculate_reward(intuition, self_eval, state.step_idx, goal_reached), 
                 {'intuition': intuition, 'goal_reached': goal_reached})
 
     def update_example(self, example, prompt=None) -> None:
